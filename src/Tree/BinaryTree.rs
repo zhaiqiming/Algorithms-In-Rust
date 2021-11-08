@@ -51,5 +51,30 @@ impl TreeNode {
     return ans;
   }
 
+  /// For Leetcoder No.94
+  /// 中序遍历二叉树【递归】
+  pub fn inorder_traversal_recursion(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
+    let mut ans = vec![];
+    if root.is_none() {
+      return ans;
+    }
+
+    if !root.as_ref().unwrap().borrow().left.is_none()  {
+      let left_ans = Self::inorder_traversal_recursion(root.as_ref().unwrap().borrow().left.clone());
+      for item in left_ans.iter() {
+        ans.push(*item);
+      }
+    }
+    
+    ans.push(root.as_ref().unwrap().borrow().val);
+    
+    if !root.as_ref().unwrap().borrow().right.is_none()  {
+      let right_ans = Self::inorder_traversal_recursion(root.as_ref().unwrap().borrow().right.clone());
+      for item in right_ans.iter() {
+        ans.push(*item);
+      }
+    }
+    ans
+  }
 }
 
