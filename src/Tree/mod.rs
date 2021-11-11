@@ -1,1 +1,1 @@
-pub mod BinaryTree;
+pub mod binary_tree;

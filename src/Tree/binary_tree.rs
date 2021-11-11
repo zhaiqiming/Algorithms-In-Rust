@@ -2,6 +2,7 @@
 
 use std::rc::Rc;
 use std::cell::RefCell;
+use std::collections::VecDeque;
 
 #[derive(Debug, PartialEq, Eq)]
 pub struct TreeNode {
@@ -75,6 +76,37 @@ impl TreeNode {
       }
     }
     ans
+  }
+
+  /// For Leetcoder No.94
+  /// 中序遍历二叉树【递归】
+  pub fn level_order(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<Vec<i32>> {
+    let mut ans = vec![];
+    let mut que = VecDeque::new();
+    if root.is_none() {
+      return ans;
+    } else {
+      que.push_back(root.clone());
+    }
+    
+    while !que.is_empty() {
+      let mut temp = vec![];
+
+      for _ in 0..que.len() {
+        let now = que.pop_front().unwrap();
+        let now_inner = now.as_ref().unwrap().borrow_mut();
+        temp.push(now_inner.val);
+        
+        if now_inner.left.is_some() {
+          que.push_back(now_inner.left.clone());
+        }
+        if now_inner.right.is_some() {
+          que.push_back(now_inner.right.clone());
+        }
+      }
+      ans.push(temp);
+    }
+    return ans;
   }
 }
 

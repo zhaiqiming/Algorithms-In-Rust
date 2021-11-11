@@ -1,6 +1,8 @@
-use ::Tree::*;
+
+// use algorithms_in_rust::tree::*;
 use std::io;
 fn main() {
+    println!("IN");
     loop {
         let mut line = String::new();
         if 0 == io::stdin().read_line(&mut line).unwrap() {
